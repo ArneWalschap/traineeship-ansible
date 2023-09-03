@@ -94,8 +94,8 @@ In onderstaande setup wordt nginx enkel gereload indien er effectief iets is ver
 - name: update nginx configuration
   lineinfile:
     path: "/etc/nginx/nginx.conf"
-	line: "user {{ webserver__user }}"
-	state: present
+    line: "user {{ webserver__user }}"
+    state: present
   notify: reload nginx
 ```
 
