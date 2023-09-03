@@ -72,3 +72,7 @@ PING tsvm1 (192.168.56.11) 56(84) bytes of data.
 64 bytes from tsvm1 (192.168.56.11): icmp_seq=2 ttl=64 time=0.434 ms
 ...
 ```
+
+# Volgende stappen
+
+```git checkout ansible-adhoc```
