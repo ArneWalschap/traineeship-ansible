@@ -40,3 +40,16 @@ ansible-playbook example-playbook.yml -i inventory --limit tsvm1
 * Run je playbook eerst met ```--limit tsvm1```
 * Run je playbook nadien zonder ```--limit``` zodat alle hosts getarget worden.
 * Wat zie je in de output?
+
+### Idempotency
+
+Als alles goed ging in vorige opdracht heb je kunnen zien dat ansible enkel iets "changed" wanneer nog niet voldaan is aan de gewenste state.
+
+Dit is het belangrijkste verschil tussen Ansible en een eenvoudig bash-scriptje.
+
+Enorm belangrijk om ervoor te zorgen dat alle ansiblecode ***idempotent*** is, en dus keer op keer kan uitgevoerd worden zonder iets stuk te maken.
+
+Bijvoorbeeld: Je wilt een playbook maken dat ervoor zorgt dat er een bepaalde configlijn aanwezig is in de sudoers file. Je moet hiervoor de juiste modules gebruiken, en niet gewoon een lijn toevoegen aan het einde van het bestand, want als je dat laatste doet zou hij bij elke herhaalde run opnieuw een lijn toevoegen.
+
+### Volgende stappen
+```git checkout ansible-vars```
