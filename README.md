@@ -1,55 +1,108 @@
 # Ansible Workshop
 This repository contains the information and code for an Ansible Workshop. The parts are split up between multiple bbranches
 
-## Ansible Playbooks
+## Variables
 
-Playbooks zijn verzamelingen van tasks (of roles, maar daarover later meer) die kunnen worden gerunt.
+variables kunnen op heel wat niveaus worden gedeclareerd en overschreven. De variable precedence kan je raadplagen op https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
 
-bv:
+### group_vars
+
+Variables kunnen toegewezen worden aan groepen van hosts. Ansible kijkt hiervoor automatisch op de volgende manier in je directory:
+
+```
+ansible/
+	inventoryfile
+	playbook.yml
+	group_vars/
+		vagrant/
+			main.yml
+```
+
+in dit voorbeeld zullen alle variabelen beschreven in main.yml worden ingelezen voor alle hosts die in de vagrant group zitten)
+
+Ook wanneer je een playbook toepast op ```all``` hosts, zullen group_vars van vagrant worden ingelezen indien de hosts in deze groep zitten in de inventoryfile!
+
+### ansible/group_vars/example/main.yml
+```yaml
+---
+simple_variable_string: "this is a string"
+simple_variable_number: 3
+list_example_one: ["this", "is", "one way", "to format a list"]
+list_example_two:
+  - "this"
+  - "is"
+  - "another way"
+  - "to format a list"
+dict_example:
+  - name: "bob"
+    occupation: "bouwer"
+  - name: "jan"
+    occupation: "mosselman"
+  - name: "dopper"
+  - name: "sinterklaas"
+    occupation: "kindervriend"
+```
+
+### host_vars
+
+We kunnen variabelen ook in host_vars beschrijven voor specifieke hosts.
+Indien een variabele in group_vars en host_vars voorkomt, zal deze in host_vars die van group_vars overschrijven.
+kwa directory werkt dit op dezelfde manier als group_vars.
+
+
+```
+ansible/
+	group_vars/
+		...
+	host_vars/
+		tsvm1/
+			main.yml
+```
+
+### ansible/host_vars/tsvm1/main.yml
+```yaml
+---
+simple_variable_string: "deze string heeft de vorige van group_vars overschreven"
+```
+
+## Using variables in tasks
+
 ```yaml
 ---
 - name: example playbook
   hosts: all                  #pattern van targets voor dit playbook
   gather_facts: yes           #informatie verzamelen over de hosts?
   become: yes                 #root worden op de target machines?
-  tasks:                      # Lijstje van tasks, elke listentry begint met een "-"
-    - name: ping de machines
-      ping:					  # De naam van de module die we gebruiken
+  tasks:
+    - name: simple variable use
+      debug:
+        msg: "the string contained in simple_variable_string is: {{ simple_variable_string }}"
 
+    - name: list variable use
+      debug:
+        msg: "the list in list_example_one is: {{ list_example_one }}"
+
+    - name: dict variable without message
+      debug:
+        var: dict_example
+
+    - name: loop example
+      debug:
+        msg: "{{ item.name }} gaat naar de bakker."
+      with_items: "{{ dict_example }}"
+
+    - name: default fallback example (to make variables optional)
+      debug:
+        msg: "{{ item.name }} is {{ item.occupation | default('werkloos') }}"
+      with_items: "{{ dict_example }}"
 ```
 
-Telkens dat een playbook wort uitgevoerd kunnen we met ```gather_facts``` ansible heel wat info laten verzamelen over de hosts. Deze info kan later opgevraagd worden via ```ansible_facts```
+## Opdrachten
+### Users
+Maak een playbook dat een lijstje van users aanmaakt (gebruik de ```user``` module in ansible).
 
-### Tasks
-* Geef alle tasks een naam!
-* Modules zijn de ***commands*** die ansible kent
-* Ansible heeft een uitstekende docbase!
-* https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html
+Definieer het lijstje met users in group_vars/vagrant/main.yml
+Overschrijf de variabele voor tsvm1 in host_vars/tsvm1/main.yml
 
-### Playbooks runnen
-
-```
-ansible-playbook example-playbook.yml -i inventory
-ansible-playbook example-playbook.yml -i inventory --limit tsvm1
-```
-
-### Opdracht
-
-* Maak een nieuwe playbook waarmee het programma ```tree``` wordt geinstalleerd.
-	* https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
-* Run je playbook eerst met ```--limit tsvm1```
-* Run je playbook nadien zonder ```--limit``` zodat alle hosts getarget worden.
-* Wat zie je in de output?
-
-### Idempotency
-
-Als alles goed ging in vorige opdracht heb je kunnen zien dat ansible enkel iets "changed" wanneer nog niet voldaan is aan de gewenste state.
-
-Dit is het belangrijkste verschil tussen Ansible en een eenvoudig bash-scriptje.
-
-Enorm belangrijk om ervoor te zorgen dat alle ansiblecode ***idempotent*** is, en dus keer op keer kan uitgevoerd worden zonder iets stuk te maken.
-
-Bijvoorbeeld: Je wilt een playbook maken dat ervoor zorgt dat er een bepaalde configlijn aanwezig is in de sudoers file. Je moet hiervoor de juiste modules gebruiken, en niet gewoon een lijn toevoegen aan het einde van het bestand, want als je dat laatste doet zou hij bij elke herhaalde run opnieuw een lijn toevoegen.
-
-### Volgende stappen
-```git checkout ansible-vars```
+#### test
+dasldfkj

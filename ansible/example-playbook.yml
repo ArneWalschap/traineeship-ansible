@@ -3,18 +3,27 @@
   hosts: all                  #pattern van targets voor dit playbook
   gather_facts: yes           #informatie verzamelen over de hosts?
   become: yes                 #root worden op de target machines? 
-  tasks:                      # Lijstje van tasks, elke listentry begint met een "-"
-    - name: ping de machines
-      ping:
-
-    - name: print ansible facts
+  tasks:
+    - name: simple variable use
       debug:
-        var: ansible_facts
+        msg: "the string contained in simple_variable_string is: {{ simple_variable_string }}"
+      tags:
+        - now
 
-    - name: toon subelement van ansible_facts
+    - name: list variable use
       debug:
-        var: ansible_facts.distribution_release
+        msg: "the list in list_example_one is: {{ list_example_one }}"
 
-    - name: informatie uit variabelen in strings gebruiken
+    - name: dict variable without message
       debug:
-        msg: "de distribution_release van {{ ansible_hostname }} is: {{ ansible_facts.distribution_release }} or {{ ansible_facts['distribution_release'] }}"
+        var: dict_example
+
+    - name: loop example
+      debug:
+        msg: "{{ item.name }} gaat naar de bakker."
+      with_items: "{{ dict_example }}"
+
+    - name: default fallback example (to make variables optional)
+      debug:
+        msg: "{{ item.name }} is {{ item.occupation | default('werkloos') }}"
+      with_items: "{{ dict_example }}"
