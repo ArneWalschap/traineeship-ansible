@@ -13,9 +13,9 @@ ansible PATTERN -m MODULE_NAME -a MODULE_ARGS -i INVENTORYFILE
 
 bv:
 ```
-ansible tsvm1,tsvm2 -m ping
-ansible all -m shell -a "uptime"
-ansible all -m shell -a "cat /etc/hostname"
+ansible tsvm1,tsvm2 -m ping -i inventory
+ansible all -m shell -a "uptime" -i inventory
+ansible all -m shell -a "cat /etc/hostname" -i inventory
 ...
 ```
 
