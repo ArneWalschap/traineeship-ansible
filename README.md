@@ -138,3 +138,6 @@ opdracht_users:
     comment: "dit is bob"
   - name: "alice"
 ```
+
+## Volgende stappen
+```git checkout ansible-roles```
