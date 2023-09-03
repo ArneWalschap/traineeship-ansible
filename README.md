@@ -70,9 +70,9 @@ Templates (zie ```template``` module) zijn files met variabelen in.
 Deze worden bij het runnen van de role ingevuld door ansible, op basis van de beschikbare variabelen.
 
 ```jinja2
-de inhoud van deze file komt terecht op "{{ ansible_host }}"
+de inhoud van deze file komt terecht op {{ ansible_host }}
 {% if extra_berichtje is defined %}
-vervolgens ook nog volgende boodschap: "{{ extra berichtje }}"
+vervolgens ook nog volgende boodschap: {{ extra_berichtje }}
 {% endif %}
 ```
 
