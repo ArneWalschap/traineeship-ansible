@@ -30,13 +30,16 @@ ansible/
   inventory
   roles/
     example-role/
-	  tasks/main.yml
-	  defaults/main.yml
+	  tasks/
+	    main.yml
+	  defaults
+	    main.yml
 	  files/
 	    somefile
 	  templates/
 	    sometemplate.j2
-	  handlers/main.yml
+	  handlers/
+	    main.yml
 ```
 
 ### example-role/tasks/main.yml
@@ -65,4 +68,11 @@ example_role__testvar: "dit is de default waarde van testvar"
 Templates (zie ```template``` module) zijn files met variabelen in. 
 
 Deze worden bij het runnen van de role ingevuld door ansible, op basis van de beschikbare variabelen.
+
+```jinja2
+de inhoud van deze file komt terecht op "{{ ansible_host }}"
+{% if extra_berichtje is defined %}
+vervolgens ook nog volgende boodschap: "{{ extra berichtje }}"
+{% endif %}
+```
 
