@@ -115,3 +115,6 @@ In onderstaande setup wordt nginx enkel gereload indien er effectief iets is ver
 		* defaultwaarde (defaults/main.yml) 9080
 	* Installeer een eenvoudige index.html die als paginatitel de hostnaam van de webserver bevat
 		* hint: gebruik een template
+	* Zorg ervoor dat de webserver aangezet wordt (service gestart dus)
+		* subsequent runs zonder changes mogen de service niet aanraken
+* Controleer & Experimenteer!
