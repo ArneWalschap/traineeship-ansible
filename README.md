@@ -3,11 +3,17 @@ This repository contains the information and code for an Ansible Workshop. The p
 
 ## Variables
 
-variables kunnen op heel wat niveaus worden gedeclareerd en overschreven. De variable precedence kan je raadplagen op https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
+variables kunnen op heel wat niveaus worden gedeclareerd en overschreven. 
+
+De variable precedence kan je raadplagen op:
+
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
 
 ### group_vars
 
-Variables kunnen toegewezen worden aan groepen van hosts. Ansible kijkt hiervoor automatisch op de volgende manier in je directory:
+Variables kunnen toegewezen worden aan groepen van hosts.
+
+Ansible kijkt hiervoor automatisch op de volgende manier in je directory:
 
 ```
 ansible/
@@ -46,8 +52,10 @@ dict_example:
 ### host_vars
 
 We kunnen variabelen ook in host_vars beschrijven voor specifieke hosts.
+
 Indien een variabele in group_vars en host_vars voorkomt, zal deze in host_vars die van group_vars overschrijven.
-kwa directory werkt dit op dezelfde manier als group_vars.
+
+Qua directory werkt dit op dezelfde manier als group_vars.
 
 
 ```
@@ -97,12 +105,36 @@ simple_variable_string: "deze string heeft de vorige van group_vars overschreven
       with_items: "{{ dict_example }}"
 ```
 
-## Opdrachten
+## Opdracht
 ### Users
-Maak een playbook dat een lijstje van users aanmaakt (gebruik de ```user``` module in ansible).
+* Maak een playbook dat een lijstje van users aanmaakt (gebruik de ```user``` module in ansible).
+* Definieer het lijstje met users in group_vars/vagrant/main.yml
+* Overschrijf de variabele voor tsvm1 in host_vars/tsvm1/main.yml
 
-Definieer het lijstje met users in group_vars/vagrant/main.yml
-Overschrijf de variabele voor tsvm1 in host_vars/tsvm1/main.yml
+users in group_vars/vagrant/main.yml:
+```yaml
+---
+opdracht_users:
+	- "bob"
+	- "alice"
+```
 
-#### test
-dasldfkj
+users in host_vars/tsvm1/main.yml:
+```yaml
+---
+opdracht_users:
+	- "babette"
+	- "Emily"
+```
+
+#### vervolg
+* Refactor voorgaande zodanig dat je optioneel ook een comment kan toevoegen aan de users (te definieren in de host of group variables)
+
+eg:
+```yaml
+---
+opdracht_users:
+	- name: "bob"
+	  comment: "dit is bob"
+	- name: "alice"
+```
