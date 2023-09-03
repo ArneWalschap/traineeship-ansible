@@ -7,6 +7,17 @@ Roles in Ansible zijn verzamelingen van samenhorende taken, files, templates, va
 
 Gelijkaardig aan playbooks dus, maar met wat bijkomende functionaliteiten.
 
+### Role gebruiken in playbook
+
+```yaml
+- name: playbook that uses a role
+  hosts: somehosts
+  gather_facts: yes
+  become: yes
+  roles:
+  	- example-role
+```
+
 ### Directory structuur
 
 ```
@@ -55,13 +66,3 @@ Templates (zie ```template``` module) zijn files met variabelen in.
 
 Deze worden bij het runnen van de role ingevuld door ansible, op basis van de beschikbare variabelen.
 
-### Role gebruiken in playbook
-
-```yaml
-- name: playbook that uses a role
-  hosts: webserver
-  gather_facts: yes
-  become: yes
-  roles:
-  	- webserver
-```
