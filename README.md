@@ -135,6 +135,6 @@ eg:
 ---
 opdracht_users:
   - name: "bob"
-	comment: "dit is bob"
+    comment: "dit is bob"
   - name: "alice"
 ```
