@@ -41,7 +41,7 @@ ansible/
 ```
 
 ### example-role/defaults/main.yml
-```
+```yaml
 ---
 # bovenstaande is een defaultwaarde van de role, met lagere precedence dan group & host vars.
 # heel handig om group_vars en host_vars compact te houden, en het gebruik van roles flexibel te maken.
@@ -54,6 +54,7 @@ Templates (zie ```template``` module) zijn files met variabelen in.
 Deze worden bij het runnen van de role ingevuld door ansible, op basis van de beschikbare variabelen.
 
 ### Role gebruiken in playbook
+
 ```yaml
 - name: playbook that uses a role
   hosts: webserver
