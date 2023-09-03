@@ -104,5 +104,14 @@ In onderstaande setup wordt nginx enkel gereload indien er effectief iets is ver
 - name: reload nginx
   service:
     name: nginx
-	state: reloaded
+    state: reloaded
 ```
+
+## Opdracht
+
+* Maak een role die een webserver naar keuze (apache/httpd, nginx...) installeert op tsvm2 en tsvm3.
+	* Bepaal in host_vars op welke poort de webserver moet luisteren voor http:
+		* poort 9082 voor tsvm2
+		* defaultwaarde (defaults/main.yml) 9080
+	* Installeer een eenvoudige index.html die als paginatitel de hostnaam van de webserver bevat
+		* hint: gebruik een template
