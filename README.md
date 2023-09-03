@@ -64,7 +64,7 @@ ansible/
 example_role__testvar: "dit is de default waarde van testvar"
 ```
 
-### example-role/templates/sometemplate.j2
+### Templates
 Templates (zie ```template``` module) zijn files met variabelen in. 
 
 Deze worden bij het runnen van de role ingevuld door ansible, op basis van de beschikbare variabelen.
@@ -76,3 +76,33 @@ vervolgens ook nog volgende boodschap: {{ extra_berichtje }}
 {% endif %}
 ```
 
+### Handlers
+Handlers zijn speciale tasks die enkel uitgevoerd worden indien ze opgeroepen worden vanuit de main tasks (met keyword ```notify```).
+
+Deze handlers worden pas uitgevoerd nadat alle andere taken zijn uitgevoerd.
+
+Ze worden maar 1x uitgevoerd, ook al worden ze meerdere keren opgeroepen.
+
+Voornaamste use-case: restarten/reloaden van services wanneer bepaalde configuratiefiles zijn aangepast.
+
+#### Voorbeeld:
+
+In onderstaande setup wordt nginx enkel gereload indien er effectief iets is veranderd aan de config.
+
+* tasks/main.yml:
+```yaml
+- name: update nginx configuration
+  lineinfile:
+    path: "/etc/nginx/nginx.conf"
+	line: "user {{ webserver__user }}"
+	state: present
+  notify: reload nginx
+```
+
+* handlers/main.yml:
+```yaml
+- name: reload nginx
+  service:
+    name: nginx
+	state: reloaded
+```
