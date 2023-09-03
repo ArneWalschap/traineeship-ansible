@@ -43,8 +43,10 @@ ansible/
 ### example-role/defaults/main.yml
 ```yaml
 ---
-# bovenstaande is een defaultwaarde van de role, met lagere precedence dan group & host vars.
-# heel handig om group_vars en host_vars compact te houden, en het gebruik van roles flexibel te maken.
+# bovenstaande is een defaultwaarde van de role, 
+#    met lagere precedence dan group & host vars.
+# heel handig om group_vars en host_vars compact te houden,
+#    en het gebruik van roles flexibel te maken.
 example_role__testvar: "dit is de default waarde van testvar"
 ```
 
