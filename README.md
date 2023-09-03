@@ -123,8 +123,8 @@ users in host_vars/tsvm1/main.yml:
 ```yaml
 ---
 opdracht_users:
-	- "babette"
-	- "Emily"
+  - "babette"
+  - "Emily"
 ```
 
 #### vervolg
@@ -134,7 +134,7 @@ eg:
 ```yaml
 ---
 opdracht_users:
-	- name: "bob"
-	  comment: "dit is bob"
-	- name: "alice"
+  - name: "bob"
+	comment: "dit is bob"
+  - name: "alice"
 ```
