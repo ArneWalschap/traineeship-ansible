@@ -1,0 +1,9 @@
+server {
+
+	listen {{ webserver__listen_port }};
+	listen [::]:{{webserver__listen_port }};
+
+	root {{ webserver__root_dir }};
+
+	server_name _;
+}

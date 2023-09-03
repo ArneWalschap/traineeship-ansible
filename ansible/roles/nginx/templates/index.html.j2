@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ ansible_hostname }}</title>
+  </head>
+  <body>
+    <p>this webserver is running on {{ ansible_hostname }}</p>
+{% if webserver__extra_message is defined %}
+    <p>it also has the following extra message: {{ webserver__extra_message }}</p>
+{% endif %}
+  </body>
+</html>

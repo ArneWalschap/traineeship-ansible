@@ -1,0 +1,42 @@
+---
+- name: install nginx
+  apt:
+    name: nginx
+    state: latest
+
+- name: ensure path for custom webpage exists
+  file:
+    path: "{{ webserver__root_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: add custom webpage
+  template:
+    src: index.html.j2
+    dest: /var/www/custom/index.html
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: add configuration for default webpage
+  template:
+    src: custom-site.cfg.j2
+    dest: /etc/nginx/sites-available/custom
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart nginx
+
+- name: ensure webpage is enabled by adding the symlink
+  file:
+    src: /etc/nginx/sites-available/custom
+    dest: /etc/nginx/sites-enabled/custom
+    state: link
+  notify: restart nginx
+
+- name: ensure nginx is started (THIS DOES NOT MEAN RESTARTED) and enabled
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
