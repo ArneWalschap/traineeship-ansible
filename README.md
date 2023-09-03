@@ -23,4 +23,20 @@ Telkens dat een playbook wort uitgevoerd kunnen we met ```gather_facts``` ansibl
 ### Tasks
 * Geef alle tasks een naam!
 * Modules zijn de ***commands*** die ansible kent
+* Ansible heeft een uitstekende docbase!
 * https://docs.ansible.com/ansible/latest/collections/ansible/builtin/ping_module.html
+
+### Playbooks runnen
+
+```
+ansible-playbook example-playbook.yml -i inventory
+ansible-playbook example-playbook.yml -i inventory --limit tsvm1
+```
+
+### Opdracht
+
+* Maak een nieuwe playbook waarmee het programma ```tree``` wordt geinstalleerd.
+	* https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+* Run je playbook eerst met ```--limit tsvm1```
+* Run je playbook nadien zonder ```--limit``` zodat alle hosts getarget worden.
+* Wat zie je in de output?
