@@ -107,7 +107,7 @@ In onderstaande setup wordt nginx enkel gereload indien er effectief iets is ver
     state: reloaded
 ```
 
-## Opdracht
+## Opdracht 1
 
 * Maak een role die een webserver naar keuze (apache/httpd, nginx...) installeert op tsvm2 en tsvm3.
 	* Bepaal in host_vars op welke poort de webserver moet luisteren voor http:
@@ -118,3 +118,8 @@ In onderstaande setup wordt nginx enkel gereload indien er effectief iets is ver
 	* Zorg ervoor dat de webserver aangezet wordt (service gestart dus)
 		* subsequent runs zonder changes mogen de service niet aanraken
 * Controleer & Experimenteer!
+
+## Opdracht 2
+
+* Maak een role die een loadbalancer (haproxy bijvoorbeeld) installeert op tsvm1
+	* configureer tsvm2 en tsvm3 als backends
