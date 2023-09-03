@@ -53,3 +53,7 @@ ansible_host_key_checking=false
 Als alles goed is, zou je nu ad-hoc commando's moeten kunnen uitvoeren.
 Probeer de commando's die hierboven beschreven staan eens uit, en experimenteer!
 
+## Volgende stappen
+
+```git checkout ansible-playbook```
+
