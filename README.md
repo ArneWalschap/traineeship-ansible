@@ -39,6 +39,10 @@ Bekijk vagrant/Vagrantfile.
 
 Deze file beschrijft de machines die vagrant moet opspinnen. We zullen 3 VM's (tsvm1,tsvm2,tsvm3) aanmaken.
 
+**Belangrijk**: De kans is groot dat je enkele aanpassingen zal moeten/willen maken aan de Vagrant omgeving.
+We wisselen tijdens deze workshop vaan van branch, en willen geen 
+
+
 CD naar vagrant/ in je terminal en voer het commando ```vagrant up``` uit. De eerste keer dat je dit doet moet vagrant de machine-image "ubuntu/jammy64" nog downloaden.
 
 ### Inloggen op de machines
@@ -47,3 +51,24 @@ Vagrant doet achter de schermen wat magie om ervoor te zorgen dat bepaalde ssh-k
 
 Je kan erop inloggen met ```vagrant ssh tsvm1```
 
+### /etc/hosts en pingen naar de machines
+
+Om zometeen makkelijker te kunnen werken, voeg je de hosts best toe aan je hostsfile:
+
+***/etc/hosts***
+```bash
+127.0.0.1    localhost
+192.168.56.11    tsvm1
+192.168.56.12    tsvm2
+192.168.56.13    tsvm3
+```
+
+Controleer of het lukt om te pingen op hostname:
+
+```
+$ ping tsvm1
+PING tsvm1 (192.168.56.11) 56(84) bytes of data.
+64 bytes from tsvm1 (192.168.56.11): icmp_seq=1 ttl=64 time=0.348 ms
+64 bytes from tsvm1 (192.168.56.11): icmp_seq=2 ttl=64 time=0.434 ms
+...
+```
