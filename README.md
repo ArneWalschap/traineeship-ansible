@@ -115,8 +115,8 @@ users in group_vars/vagrant/main.yml:
 ```yaml
 ---
 opdracht_users:
-	- "bob"
-	- "alice"
+  - "bob"
+  - "alice"
 ```
 
 users in host_vars/tsvm1/main.yml:
