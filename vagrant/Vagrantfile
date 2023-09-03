@@ -1,19 +1,11 @@
 Vagrant.configure("2") do |config|
-    config.vm.define :alpha do |alpha|
-        alpha.vm.box = "ubuntu/jammy64"
-        alpha.vm.network :private_network, ip: "192.168.56.10"
-        alpha.vm.hostname = "alpha"
+  N = 3
+
+  (1..N).each do |machine_id|
+    config.vm.define "tsvm#{machine_id}" do |machine|
+      machine.vm.box = "ubuntu/jammy64"
+      machine.vm.hostname = "tsvm#{machine_id}"
+      machine.vm.network :private_network, ip: "192.168.56.#{10+machine_id}"
     end
-
-	config.vm.define :beta do |beta|
-		beta.vm.box = "ubuntu/jammy64"
-		beta.vm.network :private_network, ip: "192.168.56.11"
-		beta.vm.hostname = "beta"
-	end
-
-	config.vm.define :gamma do |gamma|
-		gamma.vm.box = "ubuntu/jammy64"
-		gamma.vm.network :private_network, ip: "192.168.56.12"
-		gamma.vm.hostname = "gamma"
-	end
+  end
 end
